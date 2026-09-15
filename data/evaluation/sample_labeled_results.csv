@@ -1,0 +1,7 @@
+candidate,screening_score,actual_label
+candidate_a,85.0,suitable
+candidate_b,72.0,suitable
+candidate_c,61.0,not_suitable
+candidate_d,55.0,not_suitable
+candidate_e,48.0,suitable
+candidate_f,35.0,not_suitable

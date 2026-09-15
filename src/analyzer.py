@@ -4,6 +4,7 @@ from src.pdf_extractor import extract_text_from_pdf
 from src.skill_extractor import extract_skills
 from src.matcher import calculate_similarity
 from src.scorer import calculate_overall_score
+from src.text_cleaner import clean_text
 
 def analyze_resume(resume_path: str | Path, job_description: str) -> dict:
     """Analyze one resume against a job description.
@@ -13,9 +14,8 @@ def analyze_resume(resume_path: str | Path, job_description: str) -> dict:
     """
 
     # Extract resume text
-    resume_text = extract_text_from_pdf(
-        resume_path
-    )
+    resume_text = clean_text(extract_text_from_pdf(resume_path))
+    cleaned_job_description = clean_text(job_description)
 
     # Extract skills
     resume_skills = set(
@@ -23,7 +23,7 @@ def analyze_resume(resume_path: str | Path, job_description: str) -> dict:
     )
 
     required_skills = set(
-        extract_skills(job_description)
+        extract_skills(cleaned_job_description)
     )
 
     # Skill comparison
@@ -51,7 +51,7 @@ def analyze_resume(resume_path: str | Path, job_description: str) -> dict:
     # Text similarity
     resume_similarity = calculate_similarity(
         resume_text,
-        job_description
+        cleaned_job_description
     )
 
     # Overall score
